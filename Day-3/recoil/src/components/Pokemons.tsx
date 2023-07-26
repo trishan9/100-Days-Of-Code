@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useAtom } from "jotai";
+import { useRecoilState } from "recoil";
 import { pokemonsState, rawPokemonsState, searchErrorState } from "../atoms/pokemons";
 
 const apiUrl = import.meta.env.VITE_API_URL
 
 const Pokemons = () => {
-  const [pokemons, setPokemons]: any = useAtom(pokemonsState);
-  const [, setRawPokemons] = useAtom(rawPokemonsState);
-  const [searchError] = useAtom<any>(searchErrorState);
+  const [pokemons, setPokemons]: any = useRecoilState(pokemonsState);
+  const [, setRawPokemons] = useRecoilState(rawPokemonsState);
+  const [searchError] = useRecoilState<any>(searchErrorState);
 
   const { data } = useQuery({
     queryKey: ["pokemonsData"],
@@ -40,11 +40,11 @@ const Pokemons = () => {
           pokemons.map((pokemon: any) => (
             <li
               key={pokemon.url}
-              className="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow"
+              className="flex flex-col col-span-1 text-center bg-white divide-y divide-gray-200 rounded-lg shadow"
             >
-              <div className="flex flex-1 flex-col p-8">
+              <div className="flex flex-col flex-1 p-8">
                 <img
-                  className="mx-auto h-32 w-32 flex-shrink-0 rounded-full"
+                  className="flex-shrink-0 w-32 h-32 mx-auto rounded-full"
                   src={`https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${pokemon.url
                     .slice(34, 36)
                     .replace(/[^0-9]/g, "")}.svg`}
@@ -55,7 +55,7 @@ const Pokemons = () => {
                   {pokemon.name}
                 </h3>
 
-                <dl className="mt-1 flex flex-grow flex-col justify-between">
+                <dl className="flex flex-col justify-between flex-grow mt-1">
                   <dt className="sr-only">API URL</dt>
 
                   <a href={pokemon.url} target="_blank">

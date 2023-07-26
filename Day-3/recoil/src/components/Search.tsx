@@ -1,12 +1,12 @@
 import { useRef } from "react";
 import { pokemonsState, rawPokemonsState, searchErrorState } from "../atoms/pokemons";
-import { useAtom } from "jotai";
+import { useRecoilState } from "recoil";
 
 const Search = () => {
   const searchRef = useRef<any>();
-  const [, setPokemons] = useAtom(pokemonsState);
-  const [rawPokemons] = useAtom<any>(rawPokemonsState);
-  const [,setSearchError] = useAtom(searchErrorState);
+  const [, setPokemons] = useRecoilState(pokemonsState);
+  const [rawPokemons] = useRecoilState<any>(rawPokemonsState);
+  const [,setSearchError] = useRecoilState(searchErrorState);
 
   const handleChange = () => {
     const query = searchRef.current.value;
@@ -34,7 +34,7 @@ const Search = () => {
       <input
         type="text"
         placeholder="Search Pokemons"
-        className="border border-gray-400 py-2 px-6 rounded-md"
+        className="px-6 py-2 border border-gray-400 rounded-md"
         ref={searchRef}
         onChange={handleChange}
       />
