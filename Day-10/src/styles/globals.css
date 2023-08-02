@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.pokemons {
+    @apply grid grid-cols-1 gap-10;
+}
